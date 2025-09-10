@@ -19,3 +19,6 @@ Software and basic hardware description of an Arduino-based Tire Pressure Monito
 # Configure Arduino Software
 - Edit tpms.ino
 - 
+
+# The Schrader TPMS Signal
+![fig/signal.png]
