@@ -1,3 +1,4 @@
+![](/fig/lcd.png)
 # arduino-tpms
 An Arduino-based Tire Pressure Monitoring System (TPMS) receiver.
 
