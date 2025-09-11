@@ -35,17 +35,15 @@ Configuring the CC1101 can be diffult, particularly for those uninitiated to RF 
 # Hardware Pin Configuration
 | Arduino Pin # | LCD Pin | CC1101 Pin |
 | --- | --- | --- |
-| VCC | VCC | | |
-| GND | GND | | |
-| 2   |  | GDO2 |
-| 3   | RST |  |
-| 4 | BL | BL |
-| 5 | DC | DC |
-| 7 | CS |  |
-| 10 |  | | CSN |
-| 11| DIN | | MOSI |
-| 12 |  | MISO |
-| 13 | CLK | SCK |
+| 2   |     | GDO2 |
+| 3   | RST |      |
+| 4   | BL  |      |
+| 5   | DC  |      |
+| 7   | CS  |      |
+| 10  |     | CSN  |
+| 11  | DIN | MOSI |
+| 12  |     | MISO |
+| 13  | CLK | SCK  |
 
 # Development Environment
 We love Microsoft's [VS Code](https://code.visualstudio.com/) with the [Platform.io Extension](https://platformio.org/install/ide?install=vscode). If you prefer the official [Arduino IDE](https://www.arduino.cc/en/software/), the Pro Mini may require the Legacy Version.
