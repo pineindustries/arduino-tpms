@@ -27,11 +27,11 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 - Frequency: 433.92 MHz
 - Modulation: ASK/OOK
 - Packet Length: 88 Bits
-- Packet Structure:
-  Byte: 0... 4... 8... 12
-        UUUU UUUA AAPT C
-     U: Unknown (Battery Status?)
-     A: Sensor ID Number
-     P: Pressure Byte
-     T: Temperature Byte
-     C: Checksum Byte
+- Packet Structure:\
+  Byte: 0... 4... 8... 12\
+        UUUU UUUA AAPT C\
+     U: Unknown (Battery Status?)\
+     A: Sensor ID Number\
+     P: Pressure Byte\
+     T: Temperature Byte\
+     C: Checksum Byte\
