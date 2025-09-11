@@ -28,7 +28,7 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 - Modulation: ASK/OOK
 - Packet Length: 88 Bits
 - Packet Structure:\
-  [code]
+  ```
   Byte: 0... 4... 8... 12\
         UUUU UUUA AAPT C\
      U: Unknown (Battery Status?)\
@@ -36,4 +36,4 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
      P: Pressure Byte\
      T: Temperature Byte\
      C: Checksum Byte\
-  [/code]
+  ```
