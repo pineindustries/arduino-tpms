@@ -5,7 +5,7 @@
 # arduino-tpms
 An Arduino-based Tire Pressure Monitoring System (TPMS) receiver and LCD display.
 
-# The Little Microcontroller Who Could
+# The Little Microcontroller That Could
 The Arduino is a small device for this project, so we leveraged most of the available on-board resources and implemented a few software tricks. The software, as written, requires approximately 95% of the Arduino's 32 kB of flash memory.  So, to display the car icon, we used a basic compression algorithm for the image data and allocated the image to the Arduino's PROGMEM thus avoiding the Arduino's flash memory.  We programmed the interrupt function, executed when a packet is received, to run as fast as possible, terminating as soon as possible on corrupt data, unknown sensor IDs, or when an update recently occurred. This allows the Arduino to return to an RX state quickly to process incoming packets. Packet data and status are kept in volatile memory thereby providing data integrity particularly when new data arrives as the Arduino is updating the LCD, a relatively slow process.
 
 # The Texas Instruments CC1101 Sub-1 GHz Transceiver
