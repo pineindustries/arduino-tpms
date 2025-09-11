@@ -26,7 +26,7 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 - [Waveshare 2 Inch LCD Module](https://www.amazon.com/2inch-IPS-LCD-Display-Module/dp/B082GFTZQD/ref=sr_1_1?crid=TMSQEYATD13Y&dib=eyJ2IjoiMSJ9.CoCSQ0KUHCWGaeqdKZEKbMyFdIKdvxZb5S-CzjhGurBB2rVDdPcGm2T-MVZm5ZoOOuxO2ezvDc-okyEb0l13CAE36Cuq7S02e001oZLn1w5UyEePT5u_4uDdf-txvKP0p7euFOKnVNl9khJDFvAyTn50mothFp-bDsrxlK48LDmj60NL60tR_lRuOEEzzWtRTfrBSlnSq39BpMm0X8sVf6sXVDbig5LABfqxrD380us.nnx5qrxkt6qtYgvGoS2wNFfm9cIrhaaTqPi_mWPPFR8&dib_tag=se&keywords=waveshare%2B2inch&qid=1757543550&sprefix=waveshare%2B2innch%2Caps%2C205&sr=8-1&th=1)
 
 ### Hardware Pin Configuration
-The software currently supports the following pin configuration, which can be chanaged should you so desire.
+The software currently supports the following pin configuration.  Arduino pins 11, 12, and 13 are associated with the SPI interface and must be configured as depicted below.
 | Arduino Pin # | LCD Pin | CC1101 Pin |
 | --- | --- | --- |
 | 2   |     | GDO2 |
