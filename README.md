@@ -32,7 +32,7 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 ```
 Byte: 0... 4... 8... 12
       UUUU UUUA AAPT C
-   U: Unknown (Battery Status?)
+   U: Unknown (Battery Status, Other Flags?)
    A: Sensor ID Number
    P: Pressure Byte
    T: Temperature Byte (°F = (T - 60) * 9/5 + 32)
