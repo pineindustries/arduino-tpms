@@ -48,5 +48,5 @@ psi = -0.5
 ```
   See ./ref/px_algorithm.xlsx
 
-## Checksum Calculation
+## Checksum Calculation\
 $$\left( \sum_{k=1}^n
