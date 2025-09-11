@@ -38,6 +38,9 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 | 12  |     | MISO |
 | 13  | CLK | SCK  |
 
+# EMI Shielding
+The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.\
+
 # Test Equipment
 - [VXDAS TPMS Relearn Tool](https://www.amazon.com/VXDAS-EL-50448-Pressure-Monitor-Activation/dp/B072BK693N/ref=sr_1_2?crid=11EC7BY1C9H3C&dib=eyJ2IjoiMSJ9.O3TlN-ZIJTKZtaIzFnlQsptp8FAK2ySqFb06MysUtvowwqnlw1zhfY-aHUK6yP4xbblbxTqbb-pmzJyQOodniWSdd4LuRACoMSw6UInOaEx9CGKwM582CBAYvGvDFKMP_eUAudGeofFRiNPzRfhOV4bA3PADKtJQB0gZK9c62AXdINLgGEb19V7GP34X0A5w6iw4CAKjQI6eZtRHjhzNeJPpUfwRR63clx74Nlhjd_4.ZDtKkkQNmBKfXmADQyvtHiWO7rAlLI2hv02auOh0vbs&dib_tag=se&keywords=tpms+test&qid=1757543912&sprefix=tpms+tes%2Caps%2C227&sr=8-2)
 - [Anti-Static ESD Mat](https://www.amazon.com/Electronics-HPFIX-Grounding-Soldering-Resistant/dp/B08FHQDKDH/ref=sr_1_11?crid=1O6I037HNMGYQ&dib=eyJ2IjoiMSJ9.rvp07dLAZXPh4hdvYVfJbwfGTvxY94Cr6yeWt8g0m2H_zLEV-Jo5SJMrSFmp3plzrp-r-l2w-5dzBhgDWFQfpvZ1R-ExcswkxzbZwrE2eE5WluNuXr6RUALenJdXKlOwn13e_MlE39tiZLmfllPUjd9cihvVjK6YSV0M_YtjGVEAyz1tge4oF7WSBo7SnEHXClUvEuPZDIPMYzLqDcMthzUgiKuMCoqhSKGD-c9ZCK8.KE2MiJktWotRyBuDTm8GqUh9dDzobbXHwTNoAFKRSVU&dib_tag=se&keywords=static%2Bmat&qid=1757552034&sprefix=static%2Bma%2Caps%2C204&sr=8-11&th=1)
