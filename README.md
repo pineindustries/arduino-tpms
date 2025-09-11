@@ -47,3 +47,6 @@ psi = -0.5
             + floor( P/4 + 0.25 ) * 0.5
 ```
   See ./ref/px_algorithm.xlsx
+
+## Checksum Calculation
+$$\left( \sum_{k=1}^n
