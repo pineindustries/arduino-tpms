@@ -22,7 +22,7 @@ Configuring the CC1101 can be diffult, particularly for those uninitiated to RF 
   Mostly required for testing/programming the Arduino. The final version should be hardwired to USB power without an FTDI breakout.
 - [CC1101 Wireless Module with SMA Antenna Wireless Transceiver Module 315/433/868/915MHZ](https://www.amazon.com/MELIFE-CC1101-Wireless-Antenna-Transceiver/dp/B0F7XGBX65/ref=sr_1_1_sspa?crid=3VAUSVKWO7J1X&dib=eyJ2IjoiMSJ9.Ovh6JCX6xBW0aTacHEU4RxG7PSH0UBUXchziX6vyQw4_DY5iAhh_MSQOmKswVYjT5r1ZJCHwADc6j0VEgHvz-1s8W-o8c0bFeuBBNveaHmrSf8UTznp3oRrks7hgKcWncGag6ZNWxp1ORjU6btcFzQsFeivNVp721h_hN2T_PWnJlWTl9T2nH3B5jUt3OfZ26bdkHzLnMNaU1nVzCoqnOfBOUy5avaYX1ICm2gvwGyw.QP6eXnBjD3qnp3Yrhjn-9gV6EULDfV0cjzyqNfdrjOk&dib_tag=se&keywords=CC1101&qid=1757543754&sprefix=cc1101%2Caps%2C243&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1)
 - [Adafruit TLV62569 3.3V Buck Converter Breakout](https://www.adafruit.com/product/4711)\
-  Required to convert the Arduino's 5V VCC to support the CC1101 3.3V VCC.
+  Required to convert the Arduino's 5V VCC to support the CC1101 at 3.3V VCC.
 - [Waveshare 2 Inch LCD Module](https://www.amazon.com/2inch-IPS-LCD-Display-Module/dp/B082GFTZQD/ref=sr_1_1?crid=TMSQEYATD13Y&dib=eyJ2IjoiMSJ9.CoCSQ0KUHCWGaeqdKZEKbMyFdIKdvxZb5S-CzjhGurBB2rVDdPcGm2T-MVZm5ZoOOuxO2ezvDc-okyEb0l13CAE36Cuq7S02e001oZLn1w5UyEePT5u_4uDdf-txvKP0p7euFOKnVNl9khJDFvAyTn50mothFp-bDsrxlK48LDmj60NL60tR_lRuOEEzzWtRTfrBSlnSq39BpMm0X8sVf6sXVDbig5LABfqxrD380us.nnx5qrxkt6qtYgvGoS2wNFfm9cIrhaaTqPi_mWPPFR8&dib_tag=se&keywords=waveshare%2B2inch&qid=1757543550&sprefix=waveshare%2B2innch%2Caps%2C205&sr=8-1&th=1)
 
 # Test Equipment
@@ -32,8 +32,23 @@ Configuring the CC1101 can be diffult, particularly for those uninitiated to RF 
 # Test Software
 - [Texas Instruments SmartRF Studio 7](https://www.ti.com/tool/SMARTRFTM-STUDIO)
 
+# Hardware Pin Configuration
+| Arduino Pin # | LCD Pin | CC1101 Pin |
+| --- | --- | --- |
+| VCC | VCC | | |
+| GND | GND | | |
+| 2   |  | GDO2 |
+| 3   | RST |  |
+| 4 | BL | BL |
+| 5 | DC | DC |
+| 7 | CS |  |
+| 10 |  | | CSN |
+| 11| DIN | | MOSI |
+| 12 |  | MISO |
+| 13 | CLK | SCK |
+
 # Development Environment
-We love Microsoft's [VS Code](https://code.visualstudio.com/) with the [Platform.io Extension](https://platformio.org/install/ide?install=vscode)
+We love Microsoft's [VS Code](https://code.visualstudio.com/) with the [Platform.io Extension](https://platformio.org/install/ide?install=vscode). If you prefer the official [Arduino IDE](https://www.arduino.cc/en/software/), the Pro Mini may require the Legacy Version.
 
 # The Schrader TPMS Signal and Raw Data
 ![](/fig/signal.png)
