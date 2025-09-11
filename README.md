@@ -52,4 +52,5 @@ psi = -0.5
 ```math
 \begin{flalign}
 C = \left( \sum_{i=0}^{11} b_i \right) \land 0xFF
+\end{flalign}
 ```
