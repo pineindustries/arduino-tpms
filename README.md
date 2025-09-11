@@ -8,7 +8,7 @@ The Arduino is a small device for this project, so we leveraged most of the avai
 Configuring the CC1101 can be diffult, particularly for those uninitiated to RF communication or bit registers. We recommend reading TI's documentation cover-to-cover including errata. See the ./ref folder for details. And TI's Smart RF Software is a must (see below).
 
 # TPMS Sensor
-- [Schrader 433 MHz Sensor, Part Number: 29086](https://www.rockauto.com/en/moreinfo.php?pk=10672248)
+- [Schrader 433 MHz Sensor, Part Number: 29086](https://www.rockauto.com/en/moreinfo.php?pk=10672248)\
 Other part numbers may work, as well.
 
 # Receiver Hardware
