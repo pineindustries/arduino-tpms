@@ -84,3 +84,4 @@ psi = -0.5
 
 # Thanks
 [LSatan for the SmartRC CC1101 Driver Library](https://github.com/LSatan/SmartRC-CC1101-Driver-Lib)
+[merbanan's rtl-433 also helped debugging and testing](https://github.com/merbanan/rtl_433)
