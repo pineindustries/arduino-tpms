@@ -22,3 +22,4 @@ Software and basic hardware description of an Arduino-based Tire Pressure Monito
 
 # The Schrader TPMS Signal
 ![](/fig/signal.png)
+Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-100kHz-1-75GHz-Enclosure/dp/B01HA642SW/ref=sr_1_8?crid=AYZBZUIE7KMZ&dib=eyJ2IjoiMSJ9.sfbFJPG624K7g9NEHFje-VR12urW7PR8_DoFUjFh_J7yQX8cQgHa5ON6EM0iFGw1JVl7eBOLglMllG3J9aFaGfhCzEPVqPthgyl45UL8aoaRdDEF0CYBVHsrMdA84MnoT0dFXo0sZh0bm5ZXlHmxHU4bsyitbnJiTBIGQyXSgx7ImBglHYKzo__P4SgTwmAzymHZG9LzC7lxgOoUOw0xRdSENWxluiXf3jE0ptzCzvk.ic5znoyjSEfrqUMCeXKBMeouyr62M9HiimfnaWOXSxM&dib_tag=se&keywords=rtl-sdr&qid=1757548909&sprefix=rtl-sdr%2Caps%2C236&sr=8-8) with [SDRSharp](https://airspy.com/download/) and displayed with [Audacity](https://www.audacityteam.org/download/)
