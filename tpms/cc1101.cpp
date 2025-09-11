@@ -1,4 +1,4 @@
-#include <cc1101.h>
+#include "cc1101.h"
 
 void SpiStrobe(byte strobe) {
 
