@@ -67,3 +67,6 @@ psi = -0.5
 &C = \left( \sum_{i=0}^{11} b_i \right) \land 0xFF&&
 \end{flalign}
 ```
+
+# Thanks
+[LSatan for the SmartRC CC1101 Driver Library](https://github.com/LSatan/SmartRC-CC1101-Driver-Lib)
