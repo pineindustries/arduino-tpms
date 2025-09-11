@@ -14,7 +14,8 @@ Note: Other part numbers may work, as well.
 # Receiver Hardware
 - [Arduino Pro Mini 328 - 5V/16MHz](https://www.sparkfun.com/arduino-pro-mini-328-5v-16mhz.html)\
   In testing, the 3.3V/8MHz version appeared too slow to meet our processing requirements.
-- [SparkFun FTDI Basic Breakout - 5V](https://www.sparkfun.com/sparkfun-ftdi-basic-breakout-5v.html)
+- [SparkFun FTDI Basic Breakout - 5V](https://www.sparkfun.com/sparkfun-ftdi-basic-breakout-5v.html)\
+  Mostly required for testing/programming the Arduino. The final version should be hardwired to USB power without an FTDI breakout.
 - [Adafruit TLV62569 3.3V Buck Converter Breakout](https://www.adafruit.com/product/4711)
 - [CC1101 Wireless Module with SMA Antenna Wireless Transceiver Module 315/433/868/915MHZ](https://www.amazon.com/MELIFE-CC1101-Wireless-Antenna-Transceiver/dp/B0F7XGBX65/ref=sr_1_1_sspa?crid=3VAUSVKWO7J1X&dib=eyJ2IjoiMSJ9.Ovh6JCX6xBW0aTacHEU4RxG7PSH0UBUXchziX6vyQw4_DY5iAhh_MSQOmKswVYjT5r1ZJCHwADc6j0VEgHvz-1s8W-o8c0bFeuBBNveaHmrSf8UTznp3oRrks7hgKcWncGag6ZNWxp1ORjU6btcFzQsFeivNVp721h_hN2T_PWnJlWTl9T2nH3B5jUt3OfZ26bdkHzLnMNaU1nVzCoqnOfBOUy5avaYX1ICm2gvwGyw.QP6eXnBjD3qnp3Yrhjn-9gV6EULDfV0cjzyqNfdrjOk&dib_tag=se&keywords=CC1101&qid=1757543754&sprefix=cc1101%2Caps%2C243&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1)\
   The CC1101 module requires 3.3V whereas the Arduino Pro Mini only outputs 5V, hence the 3.3V Buck Converter.
