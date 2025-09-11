@@ -1,10 +1,11 @@
 # arduino-tpms
 An Arduino-based Tire Pressure Monitoring System (TPMS) receiver using the Texas Instruments CC1101 Sub-1 GHz Transceiver.
 
-# What You'll Learn
-The Arduino is a relatively small device for this project, so we leveraged most of the available on-board resources and implemented a few software "tricks". The software, as written, requires approximately 95% of the Arduino's memory.  So, to display the car icon, we used a basic compression algorithm for the image data and allocated image bits to the Arduino's PROGMEM thus alleviating requirements on the Arduino's main memory.  The interrupt, executed when a packet is received, is programmed to run as fast as possible, terminating on corrupt data, unknown sensor IDs, or when an update recently occurred. This allows the Arduino to return to an RX state listening for new packets. Packet data and status are kept in volatile memory thereby providing integrity of incoming packet data particularly when the Arduino is updating the LCD (a relatively slow process) while a subsequent packet again triggers the interrupt.
+# The Little Microcontroller Who Could
+The Arduino is a small device for this project, so we leveraged most of the available on-board resources and implemented a few software "tricks". The software, as written, requires approximately 95% of the Arduino's memory.  So, to display the car icon, we used a basic compression algorithm for the image data and allocated the image to the Arduino's PROGMEM thus avoiding usage of the Arduino's main memory for large amounts of static data.  We programmed the interrupt function, executed when a packet is received, to run as fast as possible, terminating on corrupt data, unknown sensor IDs, or when an update recently occurred. This allows the Arduino to return to an RX state quickly to process incoming packets. Packet data and status are kept in volatile memory thereby providing integrity of incoming packet data particularly when new data arrives triggering the interrupt as the Arduino is updating the LCD, a relatively slow process.
 
-Configuring the CC1101 can be diffult, particularly for those uninitiated to RF communication. We recommend reading TI's documentation cover-to-cover including errata. See the ./ref folder for details.
+# The CC1101
+Configuring the CC1101 can be diffult, particularly for those uninitiated to RF communication or bit registers. We recommend reading TI's documentation cover-to-cover including errata. See the ./ref folder for details. TI's Smart RF Software is a must (see below).
 
 # TPMS Sensor
 - [Schrader 433 MHz Sensor, Part Number: 29086](https://www.rockauto.com/en/moreinfo.php?pk=10672248)
