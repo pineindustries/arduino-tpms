@@ -1,5 +1,5 @@
 # arduino-tpms
-Software and basic hardware description of an Arduino-based Tire Pressure Monitoring System (TPMS) receiver.
+An Arduino-based Tire Pressure Monitoring System (TPMS) receiver using the Arduino's SPI bus.
 
 # TPMS Sensor
 - [Schrader 433 MHz Sensor, Part Number: 29086](https://www.rockauto.com/en/moreinfo.php?pk=10672248)
