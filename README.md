@@ -50,5 +50,6 @@ psi = -0.5
 
 ## Checksum Calculation
 ```math
-\begin{left}C = \left( \sum_{i=0}^{11} b_i \right) \land 0xFF
+\begin{flalign}
+C = \left( \sum_{i=0}^{11} b_i \right) \land 0xFF
 ```
