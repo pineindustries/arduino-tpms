@@ -50,5 +50,5 @@ psi = -0.5
 
 ## Checksum Calculation
 ```math
-C = \left( \sum_{i=0}^{11} b_i \right) AND 0xFF
+C = \left( \sum_{i=0}^{11} b_i \right) \land 0xFF
 ```
