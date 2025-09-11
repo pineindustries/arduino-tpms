@@ -9,7 +9,7 @@ Configuring the CC1101 can be diffult, particularly for those uninitiated to RF 
 
 # TPMS Sensor
 - [Schrader 433 MHz Sensor, Part Number: 29086](https://www.rockauto.com/en/moreinfo.php?pk=10672248)\
-Other part numbers may work, as well.
+Note: Other part numbers may work, as well.
 
 # Receiver Hardware
 - [Arduino Pro Mini 328 - 5V/16MHz](https://www.sparkfun.com/arduino-pro-mini-328-5v-16mhz.html)
