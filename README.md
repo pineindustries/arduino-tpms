@@ -1,4 +1,5 @@
-![](/fig/lcd.jpg, height="450px")
+![](/fig/lcd.jpg)
+![]<img src="/fig/lcd.jpg" width="100" height="100">
 
 # arduino-tpms
 An Arduino-based Tire Pressure Monitoring System (TPMS) receiver.
