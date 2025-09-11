@@ -93,7 +93,6 @@ void setRx() {
 */
 void syncFound(void) {
 
-  //Serial.println(".");
   byte fifo_length, grid_num;
   
   /* TPMS Packet Contents */
@@ -194,7 +193,6 @@ void syncFound(void) {
   status[0][grid_num] = 1;
   status[1][grid_num] = buffer[10];
   status[2][grid_num] = buffer[11];
-  Serial.print(".");
 
   /* Return to Rx Mode */
   setRx();
