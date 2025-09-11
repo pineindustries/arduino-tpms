@@ -42,7 +42,7 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 <p align="left">
   <img src="/fig/case.jpg" width="500">
 </p>
-The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.\
+The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.
 
 # Test Equipment
 - [VXDAS TPMS Relearn Tool](https://www.amazon.com/VXDAS-EL-50448-Pressure-Monitor-Activation/dp/B072BK693N/ref=sr_1_2?crid=11EC7BY1C9H3C&dib=eyJ2IjoiMSJ9.O3TlN-ZIJTKZtaIzFnlQsptp8FAK2ySqFb06MysUtvowwqnlw1zhfY-aHUK6yP4xbblbxTqbb-pmzJyQOodniWSdd4LuRACoMSw6UInOaEx9CGKwM582CBAYvGvDFKMP_eUAudGeofFRiNPzRfhOV4bA3PADKtJQB0gZK9c62AXdINLgGEb19V7GP34X0A5w6iw4CAKjQI6eZtRHjhzNeJPpUfwRR63clx74Nlhjd_4.ZDtKkkQNmBKfXmADQyvtHiWO7rAlLI2hv02auOh0vbs&dib_tag=se&keywords=tpms+test&qid=1757543912&sprefix=tpms+tes%2Caps%2C227&sr=8-2)
