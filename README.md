@@ -39,6 +39,9 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 | 13  | CLK | SCK  |
 
 # EMI Shielding
+<p align="left">
+  <img src="/fig/case.jpg" width="500">
+</p>
 The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.\
 
 # Test Equipment
