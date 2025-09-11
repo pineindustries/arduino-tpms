@@ -50,5 +50,5 @@ psi = -0.5
 
 ## Checksum Calculation
 ```math
-\leftC \eq ( \sum_{k=1}^n b_k \right)
+\left( \sum_{k=1}^n b_k \right)
 ```
