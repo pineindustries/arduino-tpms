@@ -40,3 +40,4 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 
   ## Extracting Pressure in psi from Raw Data
   ```psi = -0.5 + floor(P/4 + 0.75) * 0.3 + floor( (P + 1) % 2 + 2 * P/4 + 0.75 ) * 0.4 + floor(B/4 + 0.25) * 0.5```
+  See ./ref/px_algorithm.xlsx
