@@ -1,4 +1,3 @@
-test
 /* Community Libraries */
 #include <SPI.h>
 
