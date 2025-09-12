@@ -5,8 +5,8 @@
 # arduino-tpms
 An Arduino-based Tire Pressure Monitoring System (TPMS) receiver and LCD display.
 
-# The Little Microcontroller Who Could
-The Arduino is a small device for this project, so we leveraged most of the available on-board resources and implemented a few software tricks. The software, as written, requires approximately 95% of the Arduino's 32 kB of flash memory.  So, to display the car icon, we used a basic compression algorithm for the image data and allocated the image to the Arduino's PROGMEM thus avoiding the Arduino's flash memory.  We programmed the interrupt function, executed when a packet is received, to run as fast as possible, terminating as soon as possible on corrupt data, unknown sensor IDs, or when an update recently occurred. This allows the Arduino to return to an RX state quickly to process incoming packets. Packet data and status are kept in volatile memory thereby providing data integrity particularly when new data arrives as the Arduino is updating the LCD, a relatively slow process.
+# The Little Microcontroller That Could
+The Arduino is a small device for this project, so we leveraged most of the available on-board resources and implemented a few software tricks. The software, as written, requires approximately 95% of the Arduino's 32 kB of flash memory.  So, to display the car icon, we used a basic compression algorithm for the image data and allocated the image to the Arduino's PROGMEM thus avoiding the Arduino's flash memory.  We programmed the interrupt function, executed when a packet is received, to run as fast as possible and terminating as soon as possible on corrupt data, unknown sensor IDs, or when an update recently occurred. This allows the Arduino to return to an RX state quickly to process incoming packets. Packet data and status are kept in volatile memory thereby providing data integrity particularly when new data arrives as the Arduino is updating the LCD, a relatively slow process.
 
 # The Texas Instruments CC1101 Sub-1 GHz Transceiver
 We strongly recommend reading TI's documentation cover-to-cover including errata. See the ./ref folder for details. And TI's Smart RF Software is a must (see below).
@@ -26,6 +26,7 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 - [Waveshare 2 Inch LCD Module](https://www.amazon.com/2inch-IPS-LCD-Display-Module/dp/B082GFTZQD/ref=sr_1_1?crid=TMSQEYATD13Y&dib=eyJ2IjoiMSJ9.CoCSQ0KUHCWGaeqdKZEKbMyFdIKdvxZb5S-CzjhGurBB2rVDdPcGm2T-MVZm5ZoOOuxO2ezvDc-okyEb0l13CAE36Cuq7S02e001oZLn1w5UyEePT5u_4uDdf-txvKP0p7euFOKnVNl9khJDFvAyTn50mothFp-bDsrxlK48LDmj60NL60tR_lRuOEEzzWtRTfrBSlnSq39BpMm0X8sVf6sXVDbig5LABfqxrD380us.nnx5qrxkt6qtYgvGoS2wNFfm9cIrhaaTqPi_mWPPFR8&dib_tag=se&keywords=waveshare%2B2inch&qid=1757543550&sprefix=waveshare%2B2innch%2Caps%2C205&sr=8-1&th=1)
 
 ### Hardware Pin Configuration
+The software currently supports the following pin configuration.  Arduino pins 11, 12, and 13 are associated with the SPI interface and must be configured as depicted below.
 | Arduino Pin # | LCD Pin | CC1101 Pin |
 | --- | --- | --- |
 | 2   |     | GDO2 |
@@ -42,7 +43,7 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 <p align="left">
   <img src="/fig/case.jpg" width="500">
 </p>
-The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.\
+The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.
 
 # Test Equipment
 - [VXDAS TPMS Relearn Tool](https://www.amazon.com/VXDAS-EL-50448-Pressure-Monitor-Activation/dp/B072BK693N/ref=sr_1_2?crid=11EC7BY1C9H3C&dib=eyJ2IjoiMSJ9.O3TlN-ZIJTKZtaIzFnlQsptp8FAK2ySqFb06MysUtvowwqnlw1zhfY-aHUK6yP4xbblbxTqbb-pmzJyQOodniWSdd4LuRACoMSw6UInOaEx9CGKwM582CBAYvGvDFKMP_eUAudGeofFRiNPzRfhOV4bA3PADKtJQB0gZK9c62AXdINLgGEb19V7GP34X0A5w6iw4CAKjQI6eZtRHjhzNeJPpUfwRR63clx74Nlhjd_4.ZDtKkkQNmBKfXmADQyvtHiWO7rAlLI2hv02auOh0vbs&dib_tag=se&keywords=tpms+test&qid=1757543912&sprefix=tpms+tes%2Caps%2C227&sr=8-2)
