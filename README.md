@@ -75,7 +75,7 @@ Byte: 0... 4... 8... 12
    C: Checksum Byte
 ```
 
-## Extracting Pressure in psi from Raw Data
+## Extracting Pressure in psi from Raw Pressure Byte, P
 ```
   double psi = (double)P / 4;
   
