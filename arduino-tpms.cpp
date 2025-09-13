@@ -10,7 +10,7 @@
 #define SIDLE   0x36 // Set IDLE Mode
 #define SRX     0x34 // Set Rx Mode
 #define SRES    0x30 // Reset Chip
-#define RXBYTES 0xFB // Number of Bytes
+#define RXBYTES 0xFB // Number of Bytes in RX FIFO
 
 /*  Sensor Status Matrix 
  *    Columns correspond to grid_num
@@ -51,7 +51,7 @@ float byte2psi( uint8_t b ) {
 
 /** syncFound()
  *  
- *  Interrupt Function: Triggers when PIN_GDO0 falls indicating packet reception
+ *  Interrupt Function: Triggers when PIN_GDO0 falls
 */
 void syncFound(void) {
 
@@ -62,41 +62,23 @@ void syncFound(void) {
   }
 
   // TPMS Packet Contents
-  uint8_t buffer[10] = {0};
+  uint8_t buffer[13] = {0};
 
-  // Burst Read the FIFO to buffer
-  digitalWrite(PIN_CS0, LOW);
-  while( digitalRead(PIN_MISO) );
-  SPI.transfer(0xFF);  // 0x3F | 0xC0
+  // Burst Read the RX FIFO into buffer
+  SpiBurstReadReg(0xFF, buffer, 13);
 
-    SPI.transfer(0);  // Sync Bits
-    SPI.transfer(0);  // Sync Bits
-    SPI.transfer(0);  // Sync Bits
-    buffer[0] = SPI.transfer(0);  // Unknown
-    buffer[1] = SPI.transfer(0);  // Unknown
-    buffer[2] = SPI.transfer(0);  // Unknown
-    buffer[3] = SPI.transfer(0);  // Sensor ID
-    buffer[4] = SPI.transfer(0);  // Sensor ID
-    buffer[5] = SPI.transfer(0);  // Sensor ID
-    buffer[6] = SPI.transfer(0);  // Sensor ID
-    buffer[7] = SPI.transfer(0);  // Pressure
-    buffer[8] = SPI.transfer(0);  // Temperature
-    buffer[9] = SPI.transfer(0);  // Checksum
-
-  digitalWrite(PIN_CS0, HIGH);
-  
-  // Check Sensor ID and Get Grid Number
-  if ( buffer[3] != 0x80 || buffer[4] != 0xfd ) {
+  // Check Sensor ID and Get grid_num
+  if ( buffer[6] != 0x80 || buffer[7] != 0xfd ) {
     SpiStrobe(SRX);
     return;
   }
 
   bool s[5] = {
-    buffer[5] == 0xc8 && buffer[6] == 0x48,  // Test
-    buffer[5] == 0xc0 && buffer[6] == 0x56,  // Front Driver
-    buffer[5] == 0x6b && buffer[6] == 0x79,  // Front Passenger
-    buffer[5] == 0x66 && buffer[6] == 0xd0,  // Rear Driver
-    buffer[5] == 0xbd && buffer[6] == 0x7b   // Rear Passenger
+    buffer[8] == 0xc8 && buffer[9] == 0x48,  // Test
+    buffer[8] == 0xc0 && buffer[9] == 0x56,  // Front Driver
+    buffer[8] == 0x6b && buffer[9] == 0x79,  // Front Passenger
+    buffer[8] == 0x66 && buffer[9] == 0xd0,  // Rear Driver
+    buffer[8] == 0xbd && buffer[9] == 0x7b   // Rear Passenger
   };
 
   if ( !s[0] && !s[1] && !s[2] && !s[3] && !s[4] ) { 
@@ -113,17 +95,17 @@ void syncFound(void) {
   }
   
   // Verify Checksum
-  if ( buffer[9] != (
+  if ( buffer[12] != (
                        (
-                         buffer[0]
-                         + buffer[1]
-                         + buffer[2]
-                         + buffer[3]
+                         buffer[3]
                          + buffer[4]
                          + buffer[5]
                          + buffer[6]
                          + buffer[7]
                          + buffer[8]
+                         + buffer[9]
+                         + buffer[10]
+                         + buffer[11]
                        )
                        & 0xFF
                      )
@@ -133,9 +115,9 @@ void syncFound(void) {
   }
 
   // Update Status Matrix
-  status[0][grid_num] = grid_num == 0 || ( buffer[8] != status[1][grid_num] || buffer[9] != status[2][grid_num] );
-  status[1][grid_num] = buffer[7];
-  status[2][grid_num] = buffer[8];
+  status[0][grid_num] = grid_num == 0 || ( buffer[10] != status[1][grid_num] || buffer[11] != status[2][grid_num] );
+  status[1][grid_num] = buffer[10];
+  status[2][grid_num] = buffer[11];
 
   // Return to Rx Mode
   SpiStrobe(SRX);
@@ -204,7 +186,7 @@ void loop() {
 
       // Raw Data to Human-Readable
       px = byte2psi( status[1][i] );
-      temp = (( (float)status[2][i] - 60 ) * 9 / 5 + 32);
+      temp = ( (float)status[2][i] - 60 ) * 9 / 5 + 32;
         
       // Draw Values on LCD
       if ( i == 0 ) {

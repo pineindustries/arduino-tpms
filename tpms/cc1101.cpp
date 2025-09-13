@@ -26,6 +26,14 @@ uint8_t SpiReadReg(uint8_t addr) {
 	return value;
 }
 
+void SpiBurstReadReg(uint8_t addr, uint8_t buffer[], uint8_t len) {
+  digitalWrite(PIN_CS0, LOW);
+  while( digitalRead(PIN_MISO) );
+  SPI.transfer(addr);
+  SPI.transfer( buffer, 13 );
+  digitalWrite(PIN_CS0, HIGH);
+}
+
 void initCC1101(void) {
 
   // Set to IDLE
@@ -53,7 +61,7 @@ void initCC1101(void) {
   // Automatic Gain Control (DN022)
   SpiWriteReg(AGCCTRL2, 0x07);  // Averaged Amplitude of the Digital Filter (Per DN022: 0x03 through 0x07)
   SpiWriteReg(AGCCTRL1, 0x00);  // Set per DN022 for ASK/OOK
-  SpiWriteReg(AGCCTRL0, 0x91);  // ASK/OOK Decision Boundary: 4dB (Per DN022 set 0x91 or 0x92)
+  SpiWriteReg(AGCCTRL0, 0x10);  // ASK/OOK Decision Boundary: 4dB (Per DN022 set 0x91 or 0x92)
 
   // Receive Frequency: 433.919830 MHz
   SpiWriteReg(FSCTRL1,  0x06);  // Intermediate Frequency (Set by SmartRF Studio, See DN022)

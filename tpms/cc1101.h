@@ -64,4 +64,6 @@ void SpiWriteReg(uint8_t addr, uint8_t value);
 
 uint8_t SpiReadReg(uint8_t addr);
 
+void SpiBurstReadReg(uint8_t addr, uint8_t buffer[], uint8_t len);
+
 void initCC1101(void);
