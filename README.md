@@ -63,7 +63,7 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 - **Modulation**: ASK/OOK
 - **Encoding**: Manchester
 - **Packet Length**: 88 Bits
-- Packet Structure:
+### Packet Structure:
 ```
 Byte: 0... 4... 8... 12
       SSSS UUAA AAPT C
