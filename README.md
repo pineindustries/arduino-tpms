@@ -44,7 +44,7 @@ The software currently supports the following pin configuration.  Arduino pins 1
 <p align="left">
   <img src="/fig/case.jpg" width="500">
 </p>
-The receiver is susceptible to large amounts of Electromagnetic Interference (EMI). We tended to receive more packets by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.
+The receiver seemed quite susceptible to Electromagnetic Interference (EMI). We tended to receive packets more reliably by using a shielded case and by shielding each wire. Be sure to connect the shielding to ground.
 
 # Test Equipment
 - [VXDAS TPMS Relearn Tool](https://www.amazon.com/VXDAS-EL-50448-Pressure-Monitor-Activation/dp/B072BK693N/ref=sr_1_2?crid=11EC7BY1C9H3C&dib=eyJ2IjoiMSJ9.O3TlN-ZIJTKZtaIzFnlQsptp8FAK2ySqFb06MysUtvowwqnlw1zhfY-aHUK6yP4xbblbxTqbb-pmzJyQOodniWSdd4LuRACoMSw6UInOaEx9CGKwM582CBAYvGvDFKMP_eUAudGeofFRiNPzRfhOV4bA3PADKtJQB0gZK9c62AXdINLgGEb19V7GP34X0A5w6iw4CAKjQI6eZtRHjhzNeJPpUfwRR63clx74Nlhjd_4.ZDtKkkQNmBKfXmADQyvtHiWO7rAlLI2hv02auOh0vbs&dib_tag=se&keywords=tpms+test&qid=1757543912&sprefix=tpms+tes%2Caps%2C227&sr=8-2)
@@ -59,14 +59,15 @@ We love Microsoft's [VS Code](https://code.visualstudio.com/) with the [Platform
 # The Schrader TPMS Signal and Raw Data
 ![](/fig/signal.png)
 Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-100kHz-1-75GHz-Enclosure/dp/B01HA642SW/ref=sr_1_8?crid=AYZBZUIE7KMZ&dib=eyJ2IjoiMSJ9.sfbFJPG624K7g9NEHFje-VR12urW7PR8_DoFUjFh_J7yQX8cQgHa5ON6EM0iFGw1JVl7eBOLglMllG3J9aFaGfhCzEPVqPthgyl45UL8aoaRdDEF0CYBVHsrMdA84MnoT0dFXo0sZh0bm5ZXlHmxHU4bsyitbnJiTBIGQyXSgx7ImBglHYKzo__P4SgTwmAzymHZG9LzC7lxgOoUOw0xRdSENWxluiXf3jE0ptzCzvk.ic5znoyjSEfrqUMCeXKBMeouyr62M9HiimfnaWOXSxM&dib_tag=se&keywords=rtl-sdr&qid=1757548909&sprefix=rtl-sdr%2Caps%2C236&sr=8-8) with [SDRSharp](https://airspy.com/download/) and displayed with [Audacity](https://www.audacityteam.org/download/)
-- Frequency: 433.92 MHz
-- Modulation: ASK/OOK
-- Encoding: Manchester
-- Packet Length: 88 Bits
+- **Frequency**: 433.92 MHz
+- **Modulation**: ASK/OOK
+- **Encoding**: Manchester
+- **Packet Length**: 88 Bits
 - Packet Structure:
 ```
 Byte: 0... 4... 8... 12
-      UUUU UUUA AAPT C
+      SSSS UUAA AAPT C
+   S: Sync Bits
    U: Unknown (Battery Status, Other Flags?)
    A: Sensor ID Number
    P: Pressure Byte
