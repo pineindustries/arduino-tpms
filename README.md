@@ -6,14 +6,14 @@
 An Arduino-based Tire Pressure Monitoring System (TPMS) receiver and LCD display.
 
 # The Little Microcontroller That Could
-The Arduino is a small device for this project, so we leveraged most of the available on-board resources and implemented a few software tricks. So, to display the car icon, we used a basic compression algorithm for the image data and allocated the image to the Arduino's PROGMEM thus avoiding the Arduino's flash memory.  We programmed the interrupt function, executed when a packet is received, to run as fast as possible and terminating as soon as possible on corrupt data, unknown sensor IDs, or when an update recently occurred. This allows the Arduino to return to an RX state quickly to process incoming packets. Packet data and status are kept in volatile memory thereby providing data integrity particularly when new data arrives as the Arduino is updating the LCD, a relatively slow process.
+The objective of this project was to see if we could fit a fully functioning TPMS receiver on a small, relatively slow microcontroller. The Arduino fits this description and proved quite a challenge. We leveraged most of the available on-board resources, used the CC1101 to off-load signal processing, and implemented a few software tricks: To display the car icon, we used a basic compression algorithm for the image data and allocated the image to the Arduino's PROGMEM thus avoiding the Arduino's flash memory.  We programmed the interrupt function, executed when a packet is received, to run and terminate as fast and as soon as possible. This allows the Arduino to return to an RX state quickly to process incoming packets. Packet data and status are kept in volatile memory thereby providing data integrity while the microcontroller updates the LCD, a relatively slow process.
 
 # The Texas Instruments CC1101 Sub-1 GHz Transceiver
 We strongly recommend reading TI's documentation cover-to-cover including errata. See the ./ref folder for details. And TI's Smart RF Software is a must (see below).
 
 # TPMS Sensor
 - [Schrader 433 MHz Sensor, Part Number: 29086](https://www.rockauto.com/en/moreinfo.php?pk=10672248)\
-  Other part numbers may work, as well.
+  Other part numbers may work, as well. Other venders, though, may require major code changes.
 
 # Receiver Hardware
 - [Arduino Pro Mini 328 - 5V/16MHz](https://www.sparkfun.com/arduino-pro-mini-328-5v-16mhz.html)\
@@ -22,12 +22,12 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
   Mostly required for testing/programming the Arduino. The final version should be hardwired to USB power without an FTDI breakout.
 - [CC1101 Wireless Module with SMA Antenna Wireless Transceiver Module 315/433/868/915MHZ](https://www.amazon.com/MELIFE-CC1101-Wireless-Antenna-Transceiver/dp/B0F7XGBX65/ref=sr_1_1_sspa?crid=3VAUSVKWO7J1X&dib=eyJ2IjoiMSJ9.Ovh6JCX6xBW0aTacHEU4RxG7PSH0UBUXchziX6vyQw4_DY5iAhh_MSQOmKswVYjT5r1ZJCHwADc6j0VEgHvz-1s8W-o8c0bFeuBBNveaHmrSf8UTznp3oRrks7hgKcWncGag6ZNWxp1ORjU6btcFzQsFeivNVp721h_hN2T_PWnJlWTl9T2nH3B5jUt3OfZ26bdkHzLnMNaU1nVzCoqnOfBOUy5avaYX1ICm2gvwGyw.QP6eXnBjD3qnp3Yrhjn-9gV6EULDfV0cjzyqNfdrjOk&dib_tag=se&keywords=CC1101&qid=1757543754&sprefix=cc1101%2Caps%2C243&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1)
 - [Adafruit TLV62569 3.3V Buck Converter Breakout](https://www.adafruit.com/product/4711)\
-  Required to convert the Arduino's 5V VCC to support the CC1101 at 3.3V VCC.
+  Required to convert the Arduino's 5V on-board power to 3.3V required by the CC1101.
 - [Waveshare 2 Inch LCD Module](https://www.amazon.com/2inch-IPS-LCD-Display-Module/dp/B082GFTZQD/ref=sr_1_1?crid=TMSQEYATD13Y&dib=eyJ2IjoiMSJ9.CoCSQ0KUHCWGaeqdKZEKbMyFdIKdvxZb5S-CzjhGurBB2rVDdPcGm2T-MVZm5ZoOOuxO2ezvDc-okyEb0l13CAE36Cuq7S02e001oZLn1w5UyEePT5u_4uDdf-txvKP0p7euFOKnVNl9khJDFvAyTn50mothFp-bDsrxlK48LDmj60NL60tR_lRuOEEzzWtRTfrBSlnSq39BpMm0X8sVf6sXVDbig5LABfqxrD380us.nnx5qrxkt6qtYgvGoS2wNFfm9cIrhaaTqPi_mWPPFR8&dib_tag=se&keywords=waveshare%2B2inch&qid=1757543550&sprefix=waveshare%2B2innch%2Caps%2C205&sr=8-1&th=1)\
 [Waveshare's Wiki Page on the 2" Display](https://www.waveshare.com/wiki/2inch_LCD_Module)
 
 ### Hardware Pin Configuration
-The software currently supports the following pin configuration.  Arduino pins 11, 12, and 13 are associated with the SPI interface and must be configured as depicted below.
+The software currently supports the following pin configuration (see ./tpms/config.h). Arduino pins 11, 12, and 13 are associated with the SPI interface and must be configured as depicted below.
 | Arduino Pin # | LCD Pin | CC1101 Pin |
 | --- | --- | --- |
 | 2   |     | GDO2 |
@@ -84,7 +84,7 @@ Byte: 0... 4... 8... 12
             + (uint8_t)( (P+1) % 2 + 2*psi + 0.75 ) * 0.4 
               + (uint8_t)(psi + 0.25) * 0.5;
 ```
-  See ./ref/px_algorithm.xlsx
+See ./ref/px_algorithm.xlsx for our notes.
 
 ## Checksum Calculation
 ```math
