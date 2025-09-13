@@ -62,12 +62,12 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 - **Frequency**: 433.92 MHz
 - **Modulation**: ASK/OOK
 - **Encoding**: Manchester
-- **Packet Length**: 88 Bits
+- **Packet Length**: 96 Bits
 ### Packet Structure:
 ```
 Byte: 0... 4... 8... 12
       SSSS UUAA AAPT C
-   S: Sync Bits
+   S: Sync Pattern
    U: Unknown (Battery Status, Other Flags?)
    A: Sensor ID Number
    P: Pressure Byte
