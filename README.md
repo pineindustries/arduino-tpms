@@ -17,7 +17,7 @@ We strongly recommend reading TI's documentation cover-to-cover including errata
 
 # Receiver Hardware
 - [Arduino Pro Mini 328 - 5V/16MHz](https://www.sparkfun.com/arduino-pro-mini-328-5v-16mhz.html)\
-  In testing, the 3.3V/8MHz board appeared too slow to meet our processing requirements.
+  In testing, the 3.3V/8MHz board appeared too slow to meet our processing requirements.\
   [AtMega328P Datasheet](https://www.microchip.com/en-us/product/ATmega328P)
 - [SparkFun FTDI Basic Breakout - 5V](https://www.sparkfun.com/sparkfun-ftdi-basic-breakout-5v.html)\
   Mostly required for testing/programming the Arduino. The final version should be hardwired to USB power without an FTDI breakout.
