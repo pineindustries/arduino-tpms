@@ -67,7 +67,7 @@ Recorded using the [Nooelec RTL-SDR](https://www.amazon.com/Nooelec-RTL-SDR-SDR-
 ### Packet Structure:
 ```
 Byte: 0... 4... 8... 12
-      SSSS UUAA AAPT C
+      SSSU UUAA AAPT C
    S: Sync Pattern
    U: Unknown (Battery Status, Other Flags?)
    A: Sensor ID Number
