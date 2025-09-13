@@ -58,10 +58,10 @@
 // Status Registers
 #define MARCSTATE    0xF5    // Main Radio Control State Machine State
 
-void SpiStrobe(byte strobe);
+void SpiStrobe(uint8_t strobe);
 
-void SpiWriteReg(byte addr, byte value);
+void SpiWriteReg(uint8_t addr, uint8_t value);
 
-byte SpiReadReg(byte addr);
+uint8_t SpiReadReg(uint8_t addr);
 
 void initCC1101(void);

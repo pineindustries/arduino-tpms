@@ -2,16 +2,16 @@
 #include "icon.h"
 
 void LCD_Write_Command(uint8_t data) {	
-  digitalWrite(PIN_CS1, LOW);
   digitalWrite(PIN_DC, LOW);
+  digitalWrite(PIN_CS1, LOW);
   SPI.transfer(data);
 }
 
 void LCD_Write_Data(uint8_t data) {
+  digitalWrite(PIN_DC, HIGH);
   digitalWrite(PIN_CS1, LOW);
-  digitalWrite(PIN_DC, HIGH);
   SPI.transfer(data);
-  digitalWrite(PIN_DC, HIGH);
+  digitalWrite(PIN_CS1, HIGH);
 }
 
 void initLCD(void) {
@@ -27,8 +27,6 @@ void initLCD(void) {
   delay(200);
   digitalWrite(PIN_RST, HIGH);
   delay(200);
-  
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
 
   // Begin Initialization
   LCD_Write_Command(0x36);
@@ -145,8 +143,7 @@ void initLCD(void) {
   
   // End SPI
   digitalWrite(PIN_CS1, HIGH);
-  SPI.endTransaction();
-  
+
 }
 
 void paintPixel(uint16_t x, uint16_t y, uint16_t color) {
@@ -169,21 +166,16 @@ void paintPixel(uint16_t x, uint16_t y, uint16_t color) {
 
 void drawLine(uint16_t start_x, uint16_t x_stop, uint16_t y, uint16_t color) { 
 
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  
   for( uint16_t x = start_x; x <= x_stop; x++ ) {
     paintPixel( x, y, color);
   }
   
   digitalWrite(PIN_CS1, HIGH);
-  SPI.endTransaction();
 
 }
 
 void drawRectangle(uint16_t start_x, uint16_t x_stop, uint16_t y_start, uint16_t y_stop, uint16_t color) { 
 
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  
   for( uint16_t x = start_x; x <= x_stop; x++ ) {
     for( uint16_t y = y_start; y <= y_stop; y++ ) {
       paintPixel( x, y, color);
@@ -191,7 +183,6 @@ void drawRectangle(uint16_t start_x, uint16_t x_stop, uint16_t y_start, uint16_t
   }
   
   digitalWrite(PIN_CS1, HIGH);
-  SPI.endTransaction();
 
 }
 
@@ -221,8 +212,6 @@ void drawChar(uint16_t x, uint16_t y, const char acsii, sFONT* Font, uint16_t ba
 
 void drawString(uint16_t x, uint16_t y, const char * pString, sFONT* Font, uint16_t back_color, uint16_t fore_color) {
 
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  
   while (* pString != '\0') {
 	drawChar(x, y, * pString, Font, back_color, fore_color);
     pString++;
@@ -230,7 +219,6 @@ void drawString(uint16_t x, uint16_t y, const char * pString, sFONT* Font, uint1
   }
   
   digitalWrite(PIN_CS1, HIGH);
-  SPI.endTransaction();
 
 }
 
@@ -242,17 +230,15 @@ void initDisplay(void) {
 
   initLCD();
 
-  /* Ribbon */
+  // Ribbon
   drawRectangle( 0, 320, 0, 23, BLUE );
   drawString(55, 2, "PINE Industries", &Font20, BLUE, WHITE);
 
-  /* Left/Right Separators */
+  // Left/Right Separators
   drawLine(  25,  85, 135, BLUE );
   drawLine( 230, 290, 135, BLUE );
   
-  /* Car Icon */
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  
+  // Car Icon
   x = 112;  // Start X Pixel
   y = 45;   // Start Y Pixel
   for ( i = 0; i < 787; i++ ) {
@@ -268,75 +254,68 @@ void initDisplay(void) {
   }
   
   digitalWrite(PIN_CS1, HIGH);
-  SPI.endTransaction();
   
 }
 
 /** display_tire_data()
  *  
  * Input:
- *   byte  grid_num:          Value corresponding to tire sensor
- *   double tire_pressure:    Tire pressure in psi (see byte2psi())
- *   double tire_temperature: Tire temperature in °F
+ *   uint8_t grid_num:          Value corresponding to tire sensor
+ *   float   pressure:    Tire pressure in psi (see byte2psi())
+ *   float   temperature: Tire temperature in °F
  *   
  * Notes:
  *   Draws Pressure/Temperature values on the LCD
 */
-void displayTPMS( byte grid_num, double tire_pressure, double tire_temperature ) {
+void displayTPMS( uint8_t grid_num, float pressure, float temperature ) {
 
-  char px[6], tx[4];
-  uint16_t color = 0;
+  // White (0x0000) --> In Limits / Red --> Out of Limits
+  uint16_t color = 0xF800 * (pressure <= 29 || pressure >= 38);
 
-  /* Values for grid_num = 1 */
-  int  pressure_col    = 21;
-  byte pressure_row    = 70;
-  byte temperature_col = 23;
-  byte temperature_row = 97;
-  
-  dtostrf(tire_pressure, 3, 1, px);
-  String pressure = String(px);
-  pressure.trim();
+  // Rows / Columns
+  uint8_t p_col = 21 * (grid_num == 1 || grid_num == 3)
+                    + 226 * (grid_num == 2 || grid_num == 4);
+                          
+  uint8_t t_col = p_col + 4;
 
-  dtostrf(round(tire_temperature), 1, 0, tx);
-  String temperature = String(tx);
-  temperature.trim();
-  temperature.concat("F");
+  uint8_t p_row = 70 * (grid_num == 1 || grid_num == 2)
+                    + 170 * (grid_num == 3 || grid_num == 4);
 
-  if (grid_num == 2) {
-    
-    pressure_col    = 226;
-    temperature_col = 228;
-    
-  } else if (grid_num == 3) {
-    
-    pressure_row    = 170;
-    temperature_col = 23;
-    temperature_row = 197;
-    
-  } else if (grid_num == 4) {
-    
-    pressure_col    = 226;
-    pressure_row    = 170;
-    temperature_col = 228;
-    temperature_row = 197;
-    
-  }
+  uint8_t t_row = p_row + 27;
 
-  // Adjust Columns
-  if (pressure.length() == 3)    { pressure_col = pressure_col + 8; }
-  if (temperature.length() == 2) { temperature_col = temperature_col + 17; }
-  else if (temperature.length() == 3) { temperature_col = temperature_col + 10; }
-  else if (temperature.length() == 4) { temperature_col = temperature_col + 1; } 
-  
-  // Display Pressure & Temperature
-  if (tire_pressure <= 29) {
-    color = 0xF800;
-  }
+  // Pressure String
+  char px[6];
+  dtostrf(pressure, 3, 1, px);
+  String p = String(px);
+  p.trim();
 
+  // Temperature String
+  char tx[4];
+  dtostrf(round(temperature), 1, 0, tx);
+  String t = String(tx);
+  t.trim();
+  t.concat("F");
+
+  // Adjust Columns Based on String Length
+  unsigned int len = t.length();
+  p_col += 8 * (p.length() == 3);
+  t_col += 17 * (len == 2)
+                     + 10 * (len == 3)
+                       + 1 * (len == 4);
+
+  // Prevent Race Conditions on the SPI Bus with the CC1101
   noInterrupts();
-  drawRectangle( pressure_col - 5, pressure_col + 65, pressure_row, pressure_row + 45, BLACK );
-  drawString( pressure_col,    pressure_row,    pressure.c_str(),    &Font24,  color,  WHITE );
-  drawString( temperature_col, temperature_row, temperature.c_str(), &Font20,  BLACK,  WHITE );
+
+  // Overwrite Old Data with Black Rectangle
+  drawRectangle( p_col - 5, p_col + 65, p_row, p_row + 45, BLACK );
+
+  // Draw Pressure String
+  drawString( p_col, p_row, p.c_str(), &Font24,  color,  WHITE );
+
+  // Draw Temperature String
+  drawString( t_col, t_row, t.c_str(), &Font20,  BLACK,  WHITE );
+
+  // Re-Enable Interrupts
   interrupts();
-  
+
 }
