@@ -3,11 +3,13 @@
 #include <SPI.h>
 #include "fonts.h"
 
+#include "config.h"
+
 /* GPIO Configuration */
-#define LCD_RST_PIN   3
-#define LCD_BL_PIN    4
-#define LCD_DC_PIN    5
-#define LCD_CS_PIN    7
+// #define LCD_RST_PIN   3
+// #define LCD_BL_PIN    4
+// #define LCD_DC_PIN    5
+// #define LCD_CS_PIN    7
 
 /* LCD Size */
 #define LCD_WIDTH   320
@@ -36,10 +38,8 @@
 #define LGRAYBLUE           0xA651
 #define LBBLUE              0x2B12 
 
-//static void LCD_Write_Command(uint8_t data);
 void LCD_Write_Command(uint8_t data);
 
-//static void LCD_Write_Data(uint8_t data);
 void LCD_Write_Data(uint8_t data);
 
 void initLCD(void);

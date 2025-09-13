@@ -3,12 +3,12 @@
 void SpiStrobe(byte strobe) {
 
   SPI.beginTransaction(SPISettings(SPI_SPEED, MSBFIRST, SPI_MODE3));
-  digitalWrite(CSN_PIN, LOW);
-  while( digitalRead(MISO_PIN) );
+  digitalWrite(PIN_CS0, LOW);
+  while( digitalRead(PIN_MISO) );
   
   SPI.transfer(strobe);
   
-  digitalWrite(CSN_PIN, HIGH);
+  digitalWrite(PIN_CS0, HIGH);
   SPI.endTransaction();
   
 }
@@ -16,14 +16,14 @@ void SpiStrobe(byte strobe) {
 void SpiWriteReg(byte addr, byte value) {
 	
   SPI.beginTransaction(SPISettings(SPI_SPEED, MSBFIRST, SPI_MODE3));
-  digitalWrite(CSN_PIN, LOW);
-  while( digitalRead(MISO_PIN) );
+  digitalWrite(PIN_CS0, LOW);
+  while( digitalRead(PIN_MISO) );
   
   SPI.transfer(addr);
   delay(1);
   SPI.transfer(value); 
   
-  digitalWrite(CSN_PIN, HIGH);
+  digitalWrite(PIN_CS0, HIGH);
   SPI.endTransaction();
   
 }
@@ -33,14 +33,14 @@ byte SpiReadReg(byte addr) {
 	byte value;
 	
   SPI.beginTransaction(SPISettings(SPI_SPEED, MSBFIRST, SPI_MODE3));
-  digitalWrite(CSN_PIN, LOW);
-  while( digitalRead(MISO_PIN) );
+  digitalWrite(PIN_CS0, LOW);
+  while( digitalRead(PIN_MISO) );
   
   SPI.transfer(addr | 0x80);
   delay(1);
   value = SPI.transfer(0); 
   
-  digitalWrite(CSN_PIN, HIGH);
+  digitalWrite(PIN_CS0, HIGH);
   SPI.endTransaction();
 	
 	return value;

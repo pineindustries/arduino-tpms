@@ -2,30 +2,30 @@
 #include "icon.h"
 
 void LCD_Write_Command(uint8_t data) {	
-  digitalWrite(LCD_CS_PIN, LOW);
-  digitalWrite(LCD_DC_PIN, LOW);
+  digitalWrite(PIN_CS1, LOW);
+  digitalWrite(PIN_DC, LOW);
   SPI.transfer(data);
 }
 
 void LCD_Write_Data(uint8_t data) {
-  digitalWrite(LCD_CS_PIN, LOW);
-  digitalWrite(LCD_DC_PIN, HIGH);
+  digitalWrite(PIN_CS1, LOW);
+  digitalWrite(PIN_DC, HIGH);
   SPI.transfer(data);
-  digitalWrite(LCD_CS_PIN, HIGH);
+  digitalWrite(PIN_DC, HIGH);
 }
 
 void initLCD(void) {
 
-  pinMode(LCD_CS_PIN,  OUTPUT);
-  pinMode(LCD_RST_PIN, OUTPUT);
-  pinMode(LCD_DC_PIN,  OUTPUT);
-  pinMode(LCD_BL_PIN,  OUTPUT);
-  analogWrite(LCD_BL_PIN, 140);
+  pinMode(PIN_CS1, OUTPUT);
+  pinMode(PIN_BL,  OUTPUT);
+  pinMode(PIN_DC,  OUTPUT);
+  pinMode(PIN_BL,  OUTPUT);
+  analogWrite(PIN_BL, 140);
 
   delay(200);
-  digitalWrite(LCD_RST_PIN, LOW);
+  digitalWrite(PIN_RST, LOW);
   delay(200);
-  digitalWrite(LCD_RST_PIN, HIGH);
+  digitalWrite(PIN_RST, HIGH);
   delay(200);
   
   SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
@@ -135,7 +135,7 @@ void initLCD(void) {
   LCD_Write_Command(0x2c);
 
   // Clear LCD
-  digitalWrite(LCD_DC_PIN, HIGH);
+  digitalWrite(PIN_DC, HIGH);
   for(uint16_t i = 0; i < LCD_WIDTH; i++){
     for(uint16_t j = 0; j < LCD_HEIGHT; j++){
       SPI.transfer( (BLACK>>8) & 0xff );
@@ -144,7 +144,7 @@ void initLCD(void) {
   }
   
   // End SPI
-  digitalWrite(LCD_CS_PIN, HIGH);
+  digitalWrite(PIN_CS1, HIGH);
   SPI.endTransaction();
   
 }
@@ -161,7 +161,7 @@ void paintPixel(uint16_t x, uint16_t y, uint16_t color) {
   
   LCD_Write_Command(0x2c);
 
-  digitalWrite(LCD_DC_PIN, HIGH);
+  digitalWrite(PIN_DC, HIGH);
   SPI.transfer((color>>8) & 0xff);
   SPI.transfer(color);
   
@@ -175,7 +175,7 @@ void drawLine(uint16_t start_x, uint16_t x_stop, uint16_t y, uint16_t color) {
     paintPixel( x, y, color);
   }
   
-  digitalWrite(LCD_CS_PIN, HIGH);
+  digitalWrite(PIN_CS1, HIGH);
   SPI.endTransaction();
 
 }
@@ -190,7 +190,7 @@ void drawRectangle(uint16_t start_x, uint16_t x_stop, uint16_t y_start, uint16_t
     }
   }
   
-  digitalWrite(LCD_CS_PIN, HIGH);
+  digitalWrite(PIN_CS1, HIGH);
   SPI.endTransaction();
 
 }
@@ -229,7 +229,7 @@ void drawString(uint16_t x, uint16_t y, const char * pString, sFONT* Font, uint1
 	x += Font->Width;
   }
   
-  digitalWrite(LCD_CS_PIN, HIGH);
+  digitalWrite(PIN_CS1, HIGH);
   SPI.endTransaction();
 
 }
@@ -267,7 +267,7 @@ void initDisplay(void) {
     set = !set;
   }
   
-  digitalWrite(LCD_CS_PIN, HIGH);
+  digitalWrite(PIN_CS1, HIGH);
   SPI.endTransaction();
   
 }

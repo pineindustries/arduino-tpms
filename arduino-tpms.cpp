@@ -1,26 +1,16 @@
-/* Community Libraries */
+/* Arduino Headers */
 #include <SPI.h>
 
-/* Custom Libraries */
+/* Custom Headers */
+#include "tpms/config.h"
 #include "tpms/waveshare.h"
 #include "tpms/cc1101.h"
 
-/* Microcontroller SPI Interface Pins 
- * Shared between the LCD and the CC1101
-*/
-#define SCK_PIN   13  
-#define MISO_PIN  12
-#define MOSI_PIN  11
-
-/* LCD Pin */
-#define LCD_CS_PIN 7
-
-/* CC1101 Pins and Registers */
-#define CC1101_CS_PIN      10
-#define CC1101_GDO0_PIN     2
-#define SIDLE            0x36 // Set IDLE Mode
-#define SRX              0x34 // Set Rx Mode
-#define SRES             0x30 // Reset Chip
+/* CC1101 Registers */
+#define SIDLE   0x36 // Set IDLE Mode
+#define SRX     0x34 // Set Rx Mode
+#define SRES    0x30 // Reset Chip
+#define RXBYTES 0xFB // Number of Bytes
 
 /*  Sensor Status Matrix 
  *    Columns correspond to grid_num
@@ -40,8 +30,7 @@ volatile byte status[3][5] = {
 unsigned long last_update[5] = {0};
 
 /** For Testing
- *   When using a test sensor, idx cyclically iterates
- *   from grid_num = 1 through grid_num = 4
+ *   When using a test sensor, idx cycles through grid_num = 1 through grid_num = 4
 */
 byte idx = 0; 
 
@@ -68,55 +57,26 @@ double byte2psi( byte b ) {
   
 }
 
-/** setRx()
- * 
- *  Set the CC1101 Back to RX Mode
- * 
- * Input: None
- *   
- * Returns: None
- *
-*/
-void setRx() {
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  digitalWrite(CSN_PIN, LOW);
-  while( digitalRead(MISO_PIN) );
-  SPI.transfer(SRX);
-  digitalWrite(CSN_PIN, HIGH);
-  SPI.endTransaction();
-}
-
 /** syncFound()
  *  
- *  Triggers when digital pin 2 falls, and 
- *  extracts TPMS packet contents as received on the CC1101
+ *  Interrupt Function: Triggers when PIN_GDO0 falls indicating packet reception
 */
 void syncFound(void) {
-
-  byte fifo_length, grid_num;
-  
-  /* TPMS Packet Contents */
-  byte buffer[13] = {0};
-  
-  /* Check for Zero-Length FIFO */
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  digitalWrite(CC1101_CS_PIN, LOW);
-  while( digitalRead(MISO_PIN) );
-  SPI.transfer( 0xFB );
-  fifo_length = SPI.transfer(0);
-  digitalWrite(CC1101_CS_PIN, HIGH);
-  SPI.endTransaction();
-  
-  if (!fifo_length) { 
-    setRx();
+ 
+    /* Check for Zero-Length FIFO */
+  if (!SpiReadReg(RXBYTES)) { 
+    SpiStrobe(SRX);
     return; 
   }
 
+  /* TPMS Packet Contents */
+  byte buffer[13] = {0};
+
   /* Read Burst FIFO to buffer */
   SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
-  digitalWrite(CC1101_CS_PIN, LOW);
-  while( digitalRead(MISO_PIN) );
-  SPI.transfer( 0xFF );  // 0x3F | 0xC0
+  digitalWrite(PIN_CS0, LOW);
+  while( digitalRead(PIN_MISO) );
+  SPI.transfer(0xFF);  // 0x3F | 0xC0
 
     buffer[0]  = SPI.transfer(0);
     buffer[1]  = SPI.transfer(0);
@@ -132,28 +92,29 @@ void syncFound(void) {
     buffer[11] = SPI.transfer(0);
     buffer[12] = SPI.transfer(0);
 
-  digitalWrite(CC1101_CS_PIN, HIGH);
+  digitalWrite(PIN_CS0, HIGH);
   SPI.endTransaction();
   
   /* Check Sensor ID */
-  /* Your code may vary based on your sensor IDs */
-  if ( buffer[7] != 0xfd && buffer[7] != 0xfd ) {
-    setRx();
+  if ( buffer[7] != 0xfd ) {
+    SpiStrobe(SRX);
     return;
   }
+
+  byte grid_num;
   if ( buffer[8] == 0xc8 && buffer[9] == 0x48 )      { grid_num = 0; }
   else if ( buffer[8] == 0xc0 && buffer[9] == 0x56 ) { grid_num = 1; }
   else if ( buffer[8] == 0x6b && buffer[9] == 0x79 ) { grid_num = 2; }
   else if ( buffer[8] == 0x66 && buffer[9] == 0xd0 ) { grid_num = 3; }
   else if ( buffer[8] == 0xbd && buffer[9] == 0x7b ) { grid_num = 4; }
   else {  
-         setRx();
-         return; 
+         SpiStrobe(SRX);
+         return;
        }
 
   /* No New Updates */
   if ( status[0][grid_num] ) { 
-    setRx();
+    SpiStrobe(SRX);
     return; 
   }
    
@@ -176,7 +137,7 @@ void syncFound(void) {
                        & 0xFF
                      )
      ) {
-    setRx();
+    SpiStrobe(SRX);
     return;
   }
 
@@ -184,7 +145,7 @@ void syncFound(void) {
   if ( grid_num != 0 ) {
     if ( buffer[10] == status[1][grid_num] && buffer[11] == status[2][grid_num] ) {
       status[0][grid_num] = 0;
-      setRx();
+      SpiStrobe(SRX);
       return;
     }
   }
@@ -195,7 +156,7 @@ void syncFound(void) {
   status[2][grid_num] = buffer[11];
 
   /* Return to Rx Mode */
-  setRx();
+  SpiStrobe(SRX);
 
 }
 
@@ -216,9 +177,9 @@ void setup() {
   delay(7000);
 
   /* Ready to Receive Packets */
-  SPI.usingInterrupt(digitalPinToInterrupt(CC1101_GDO0_PIN));
+  SPI.usingInterrupt(digitalPinToInterrupt(PIN_GDO0));
   attachInterrupt(
-                   digitalPinToInterrupt(CC1101_GDO0_PIN), 
+                   digitalPinToInterrupt(PIN_GDO0), 
                    syncFound, 
                    FALLING
                  );

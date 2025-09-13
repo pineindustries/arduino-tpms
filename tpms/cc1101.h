@@ -1,13 +1,8 @@
-// Community Includes
+// Arduino Headers
 #include <SPI.h>
 
-// SPI Configuration
-#define SCK_PIN      13
-#define MISO_PIN     12
-#define MOSI_PIN     11
-#define CSN_PIN      10
-#define GDO0_PIN     2
-#define SPI_SPEED    20000000
+// Custom Headers
+#include "config.h"
 
 // CC1101 Configuration Registers
 #define IOCFG2       0x00    // GDO2 output pin configuration
@@ -16,7 +11,7 @@
 #define FIFOTHR      0x03    // RX FIFO and RX FIFO Thresholds
 #define SYNC1        0x04    // Sync word, high INT8U
 #define SYNC0        0x05    // Sync word, low INT8U
-#define PKTLEN       0x06    // Packet length-
+#define PKTLEN       0x06    // Packet length
 #define PKTCTRL1     0x07    // Packet automation control
 #define PKTCTRL0     0x08    // Packet automation control
 #define ADDR         0x09    // Device address
