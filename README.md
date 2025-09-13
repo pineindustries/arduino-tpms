@@ -90,7 +90,7 @@ See ./ref/px_algorithm.xlsx for our notes.
 ## Checksum Calculation
 ```math
 \begin{flalign}
-&C = \left( \sum_{i=0}^{11} b_i \right) \land 0xFF&&
+&C = \left( \sum_{i=3}^{11} b_i \right) \land 0xFF&&
 \end{flalign}
 ```
 
