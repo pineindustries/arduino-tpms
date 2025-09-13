@@ -77,7 +77,7 @@ Byte: 0... 4... 8... 12
 
 ## Extracting Pressure in psi from Raw Pressure Byte, P
 ```
-  double psi = (double)P / 4;
+  float psi = (float)P / 4;
   
   psi = -0.5 
           + (uint8_t)(psi + 0.75) * 0.3 
