@@ -1,15 +1,10 @@
-/* Libraries */
+// Arduino Headers
 #include <stdint.h>
 #include <SPI.h>
 #include "fonts.h"
 
+// Custom Headers
 #include "config.h"
-
-/* GPIO Configuration */
-// #define LCD_RST_PIN   3
-// #define LCD_BL_PIN    4
-// #define LCD_DC_PIN    5
-// #define LCD_CS_PIN    7
 
 /* LCD Size */
 #define LCD_WIDTH   320
