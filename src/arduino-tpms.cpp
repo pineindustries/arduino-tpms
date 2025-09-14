@@ -168,21 +168,29 @@ void loop() {
 
   uint8_t i = 5;
   float px, temp;
-  unsigned long m, d;
+  unsigned long m;
+  
+  // Test Sensor Cycles through grid_num = 1 through 4
+  static uint8_t idx = 0;
 
   while ( i-- ) {
     
-    if ( status[0][i] ) {
+    if ( status[0][i] ) {     
 
       // Time Metrics
       m = millis();
-      d = m - last_update[i];
 
       // Avoid Displaying the Same Packet During a Burst
-      if ( d < 3000 ) {
+      if ( millis() - last_update[i] < 3000 ) {
         status[0][i] = 0;
         continue;
       }
+
+      // Prevent Race Conditions on the SPI Bus
+      noInterrupts();
+
+      // Set IDLE
+      SpiStrobe(SIDLE);
 
       // Raw Data to Human-Readable
       px = byte2psi( status[1][i] );
@@ -198,6 +206,12 @@ void loop() {
       // Update Metrics
       last_update[i] = m;
       status[0][i] = 0;
+
+      // Back to Listening
+      SpiStrobe(SRX);
+
+      // Re-Enable Interrupts
+      interrupts();
 
     }
   }

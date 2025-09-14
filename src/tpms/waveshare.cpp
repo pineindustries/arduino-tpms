@@ -304,7 +304,7 @@ void displayTPMS( uint8_t grid_num, float pressure, float temperature ) {
                        + 1 * (len == 4);
 
   // Prevent Race Conditions on the SPI Bus with the CC1101
-  noInterrupts();
+  //noInterrupts();
 
   // Overwrite Old Data with Black Rectangle
   drawRectangle( p_col - 5, p_col + 65, p_row, p_row + 45, BLACK );
@@ -316,6 +316,6 @@ void displayTPMS( uint8_t grid_num, float pressure, float temperature ) {
   drawString( t_col, t_row, t.c_str(), &Font20,  BLACK,  WHITE );
 
   // Re-Enable Interrupts
-  interrupts();
+  //interrupts();
 
 }
