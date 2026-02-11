@@ -76,17 +76,6 @@ Byte: 0... 4... 8... 12
    C: Checksum Byte
 ```
 
-## Extracting Pressure in psi from Raw Pressure Byte, P
-```
-  float psi = (float)P / 4;
-  
-  psi = -0.5 
-          + (uint8_t)(psi + 0.75) * 0.3 
-            + (uint8_t)( (P+1) % 2 + 2*psi + 0.75 ) * 0.4 
-              + (uint8_t)(psi + 0.25) * 0.5;
-```
-See ./ref/px_algorithm.xlsx for our notes.
-
 ## Checksum Calculation
 ```math
 \begin{flalign}
